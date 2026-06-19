@@ -33,6 +33,9 @@ export const login = async (req, res) => {
         }
         const user = await pool.query("select id, name, email, password from users where email = $1" ,[email])
         const existingUser = user.rows[0]
+        if(!existingUser){
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
         const isPasswordcorrect = await bcrypt.compare(password, existingUser.password)
         if(!isPasswordcorrect){
             return res.status(400).json({ message: "Invalid credentials" });
