@@ -1,10 +1,6 @@
-import pool from "../config/db.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import { loginUser, registerUser } from "../services/authService.js";
 
-dotenv.config();
+
 
 export const register = async (req, res) => {
     try {
