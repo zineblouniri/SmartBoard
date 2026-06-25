@@ -24,6 +24,6 @@ export const loginUser = async(email, password) => {
     if(!isMatch){
         throw new Error("Invalid credentials");
     }
-    const token = jwt.sign({id:user.rows[0].id}, process.env.JWT_SECRET, {expiresIn:"7d"});
-    return {token, user:user.rows[0]};
+    const token = jwt.sign({id:user.rows[0].id}, process.env.JWT_SECRET, {expiresIn:"1d"});
+    return {token, name:user.rows[0].name, email:user.rows[0].email};
 }

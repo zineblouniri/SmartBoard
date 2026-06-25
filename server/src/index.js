@@ -6,13 +6,15 @@ import authRoute from "./routes/authRoute.js"
 import projectRoute from "./routes/projectRoute.js"
 import taskRoute from "./routes/taskRoute.js"
 import {verifyToken} from "./middleware/authMiddleware.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 dotenv.config();
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/auth" ,authRoute)
 app.use("/api/projects",verifyToken, projectRoute)
