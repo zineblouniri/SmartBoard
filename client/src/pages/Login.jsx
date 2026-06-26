@@ -9,9 +9,13 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const res = await axios.post("http://localhost:8080/api/auth/login", {email, password})
-        console.log(res.data);
-        navigate("/dashboard")
+        try {
+          const res = await axios.post("http://localhost:8080/api/auth/login", {email, password})
+          console.log(res.data);
+          navigate("/dashboard")
+        } catch (error) {
+          console.error(error);
+        }
     }
   return (
     <div className="h-screen w-screen">
@@ -20,10 +24,10 @@ const Login = () => {
         <div className="flex flex-col items-center">
             <form action="" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4">
-                <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="border borer-gray-100 rounded-xl px-2 py-1 outline-none " />
+                <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="border border-gray-100 rounded-xl px-2 py-1 outline-none " />
                 <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
-            <button type="submit" className="bg-blue-500 px-2 py-1 rounded_xl">Login</button>
+            <button type="submit" className="bg-blue-500 px-2 py-1 rounded-xl">Login</button>
         </form>
         </div>
       </div>
