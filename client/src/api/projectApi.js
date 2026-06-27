@@ -5,22 +5,22 @@ export const getProjects = async() => {
     return res.data
 }
 
-export const getProject = async(id) => {
-    const res = await api.get(`/projects/${id}`)
+export const getProject = async(project_id) => {
+    const res = await api.get(`/projects/${project_id}`)
     return res.data
 }
 
-export const createProject = async (name, description ) => {
-    const res = await api.post('/projects', {name, description})
+export const createProject = async (project ) => {
+    const res = await api.post('/projects', project)
     return res.data
 }
 
-export const updateProject = async (id, name, description) => {
-    const res = await api.put(`/projects/${id}`, {name, description})
+export const updateProject = async (project) => {
+    const res = await api.put(`/projects/${project.id}`, project)
     return res.data
 }
 
-export const deleteProject = async (id) => {
-    const res = await api.delete(`/projects/${id}`)
+export const deleteProject = async (project_id) => {
+    const res = await api.delete(`/projects/${project_id}`)
     return res.data
 }

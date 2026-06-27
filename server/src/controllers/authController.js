@@ -8,7 +8,7 @@ export const register = async (req, res) => {
         if(!name || !email || !password){
             return res.status(400).json({ message: "Please provide all required fields" });
         }
-        const user = await registerUser(name, email, password)
+        const user = await registerUser({name, email, password})
         res.status(201).json({ message: "User registered successfully", user });
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -21,7 +21,7 @@ export const login = async (req, res) => {
         if(!email || !password){
             return res.status(400).json({ message: "Please provide all required fields" });
         }
-        const user = await loginUser(email, password)
+        const user = await loginUser({email, password})
         res.cookie(
             "token",
             user.token,

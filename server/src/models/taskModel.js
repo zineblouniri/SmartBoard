@@ -1,13 +1,13 @@
 import pool from "../config/db.js";
 
 export const createTask = (
-  title,
+  {title,
   description,
   status,
   priority,
   deadline,
   project_id,
-  assigned_to,
+  assigned_to}
 ) => {
   return pool.query(
     `insert into tasks 
@@ -18,14 +18,14 @@ export const createTask = (
 };
 
 export const updateTask = (
-  id,
+  {id,
   title,
   description,
   status,
   priority,
   deadline,
   assigned_to,
-  owner_id,
+  owner_id}
 ) => {
   return pool.query(
     `update tasks set title=$1, description = $2, status = $3, 
@@ -47,7 +47,7 @@ export const updateTask = (
   );
 };
 
-export const deleteTask = (id, owner_id) => {
+export const deleteTask = ({id, owner_id}) => {
   return pool.query(
     `delete from tasks where id = $1 
     and project_id in (select id from projects where owner_id = $2)
@@ -56,20 +56,20 @@ export const deleteTask = (id, owner_id) => {
   );
 };
 
-export const findTaskById = (id, owner_id) => {
+export const findTaskById = ({id, owner_id}) => {
   return pool.query(
     "select tasks.* from tasks join projects on tasks.project_id = projects.id where task.id = $1 and projects.owner_id = $2",
     [id, owner_id],
   );
 };
 
-export const findTasksByProjectId = (project_id, owner_id) => {
+export const findTasksByProjectId = ({project_id, owner_id}) => {
   return pool.query(
     "select tasks.* from tasks join projects on tasks.project_id = projects.id where tasks.project_id = $1 and projects.owner_id = $2",
     [project_id, owner_id],
   );
 }
-export const findTasks = (owner_id) => {
+export const findTasks = ({owner_id}) => {
   return pool.query(
     "select tasks.* from tasks join projects on tasks.project_id = projects.id where projects.owner_id = $1",
     [owner_id],

@@ -4,18 +4,18 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const registerUser = async (name, email, password) => {
-    const existingUser = await findUserByEmail(email);
+export const registerUser = async ({name, email, password}) => {
+    const existingUser = await findUserByEmail({email});
     if (existingUser.rows.length > 0) {
         throw new Error("User already exists");
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user =  await createUser(name, email, hashedPassword);
+    const user =  await createUser({name, email, hashedPassword});
     return user.rows[0];
 }
 
-export const loginUser = async(email, password) => {
-    const user = await findUserByEmail(email);
+export const loginUser = async({email, password}) => {
+    const user = await findUserByEmail({email});
     if(user.rows.length ===0){
         throw new Error("Invalid credentials");
     }
