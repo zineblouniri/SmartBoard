@@ -2,7 +2,7 @@
 import {createProject,findProjectById,updateProject, deleteProject,findProjects} from '../models/projectModel.js'
 export const addProject = async (name, description, owner_id) => {
     const project = await createProject(name, description, owner_id);
-    return project.rows[0]
+    return project.rows[0] 
 }
 
 export const getProjectsByOwnerId = async (owner_id) => {

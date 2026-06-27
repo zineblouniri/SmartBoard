@@ -14,7 +14,7 @@ const Register = () => {
         try {
             const res = await axios.post("http://localhost:8080/api/auth/register", {name, email, password})
             console.log(res.data);
-            navigate("/")
+            navigate("/login")
         } catch (error) {
             console.error(error);
         }
@@ -30,7 +30,7 @@ const Register = () => {
                 <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="border border-gray-100 rounded-xl px-2 py-1 outline-none " />
             </div>
             <button type="submit" className="bg-blue-500 px-2 py-1 rounded-xl">Register</button>
-            <p>Already have an account? <a href="/">Login</a></p>
+            <p>Already have an account? <a href="/login">Login</a></p>
         </form>
       </div>
     </div>

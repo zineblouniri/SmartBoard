@@ -10,7 +10,11 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-          const res = await axios.post("http://localhost:8080/api/auth/login", {email, password})
+          const res = await axios.post("http://localhost:8080/api/auth/login", {email, password},
+            {
+        withCredentials: true,
+    }
+          )
           console.log(res.data);
           navigate("/dashboard")
         } catch (error) {
