@@ -1,0 +1,91 @@
+<svg width="620" height="360" viewBox="0 0 620 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="180" y1="40" x2="520" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6D72FF"/>
+      <stop offset="1" stop-color="#4F46E5"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="410" y1="95" x2="540" y2="225" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#37C98B"/>
+      <stop offset="0.33" stop-color="#45C98E"/>
+      <stop offset="0.34" stop-color="#7C83FF"/>
+      <stop offset="0.66" stop-color="#7C83FF"/>
+      <stop offset="0.67" stop-color="#4F46E5"/>
+      <stop offset="1" stop-color="#4F46E5"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#4F46E5" flood-opacity="0.14"/>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#8B8DF8" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- soft abstract background -->
+  <path d="M148 248C90 194 122 120 183 91C244 62 268 22 351 31C433 40 454 88 520 84C578 80 611 116 598 171C584 228 531 260 472 280C390 308 225 321 148 248Z"
+        fill="#F1F2FF"/>
+  <circle cx="105" cy="84" r="7" fill="#D8DBFF"/>
+  <circle cx="74" cy="189" r="5" fill="#D8DBFF"/>
+  <circle cx="584" cy="121" r="5" fill="#D8DBFF"/>
+  <circle cx="551" cy="260" r="4" fill="#D8DBFF"/>
+  <circle cx="180" cy="53" r="4" fill="#E3E5FF"/>
+
+  <!-- main analytics window -->
+  <g filter="url(#shadow)">
+    <rect x="170" y="78" width="330" height="205" rx="14" fill="white"/>
+    <rect x="170" y="78" width="330" height="30" rx="14" fill="url(#g1)"/>
+    <rect x="170" y="95" width="330" height="13" fill="url(#g1)"/>
+    <circle cx="190" cy="93" r="3" fill="white" fill-opacity=".95"/>
+    <circle cx="202" cy="93" r="3" fill="white" fill-opacity=".95"/>
+    <circle cx="214" cy="93" r="3" fill="white" fill-opacity=".95"/>
+    <rect x="455" y="90" width="27" height="5" rx="2.5" fill="white" fill-opacity=".25"/>
+
+    <!-- faint UI lines -->
+    <rect x="194" y="126" width="78" height="9" rx="4.5" fill="#F2F3FF"/>
+    <rect x="194" y="143" width="50" height="7" rx="3.5" fill="#F5F6FF"/>
+    <rect x="362" y="244" width="103" height="7" rx="3.5" fill="#EFF0FF"/>
+    <rect x="362" y="258" width="70" height="7" rx="3.5" fill="#F3F4FF"/>
+
+    <!-- line chart -->
+    <path d="M216 208L255 174L290 196L326 160L365 145"
+          stroke="#6370F5" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="216" cy="208" r="6" fill="#6370F5"/>
+    <circle cx="255" cy="174" r="6" fill="#6370F5"/>
+    <circle cx="290" cy="196" r="6" fill="#6370F5"/>
+    <circle cx="326" cy="160" r="6" fill="#6370F5"/>
+    <circle cx="365" cy="145" r="6" fill="#6370F5"/>
+
+    <!-- donut chart -->
+    <circle cx="430" cy="170" r="42" stroke="#EEF0FF" stroke-width="17"/>
+    <path d="M430 128A42 42 0 0 1 472 170"
+          stroke="#4F46E5" stroke-width="17" stroke-linecap="butt"/>
+    <path d="M472 170A42 42 0 0 1 430 212"
+          stroke="#7C83FF" stroke-width="17"/>
+    <path d="M430 212A42 42 0 0 1 388 170"
+          stroke="#5A64F2" stroke-width="17"/>
+    <path d="M388 170A42 42 0 0 1 430 128"
+          stroke="#40C789" stroke-width="17"/>
+  </g>
+
+  <!-- checklist card -->
+  <g filter="url(#soft)">
+    <rect x="110" y="208" width="126" height="118" rx="14" fill="white" stroke="#E8E9FB"/>
+    <circle cx="136" cy="237" r="9" fill="#E8FAF2"/>
+    <path d="M132 237L135 240L141 233" stroke="#39BF83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="154" y="233" width="48" height="8" rx="4" fill="#E7E9F3"/>
+    <circle cx="136" cy="268" r="9" fill="#E8FAF2"/>
+    <path d="M132 268L135 271L141 264" stroke="#39BF83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="154" y="264" width="48" height="8" rx="4" fill="#E7E9F3"/>
+    <circle cx="136" cy="299" r="9" fill="#E8FAF2"/>
+    <path d="M132 299L135 302L141 295" stroke="#39BF83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="154" y="295" width="48" height="8" rx="4" fill="#E7E9F3"/>
+  </g>
+
+  <!-- bar chart card -->
+  <g filter="url(#soft)">
+    <rect x="425" y="235" width="150" height="92" rx="14" fill="white" stroke="#E8E9FB"/>
+    <rect x="455" y="286" width="13" height="19" rx="3" fill="#5260F1"/>
+    <rect x="481" y="270" width="13" height="35" rx="3" fill="#96A0FF"/>
+    <rect x="507" y="280" width="13" height="25" rx="3" fill="#707AF7"/>
+    <rect x="533" y="254" width="13" height="51" rx="3" fill="#5864F4"/>
+  </g>
+</svg>

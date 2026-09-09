@@ -1,4 +1,4 @@
-import {findUserByEmail, createUser} from "../models/authModel.js";
+import {findUserByEmail, createUser, getUser} from "../models/authModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -24,6 +24,12 @@ export const loginUser = async({email, password}) => {
     if(!isMatch){
         throw new Error("Invalid credentials");
     }
-    const token = jwt.sign({id:user.rows[0].id}, process.env.JWT_SECRET, {expiresIn:"1d"});
+    const token = jwt.sign({id:user.rows[0].id}, process.env.JWT_SECRET, {expiresIn:"7d"});
     return {token, name:user.rows[0].name, email:user.rows[0].email};
+}
+
+export const getCurrentUser = async ({id}) => {
+    const user = await getUser({id})
+    return user.rows[0];
+
 }

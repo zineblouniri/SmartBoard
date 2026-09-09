@@ -9,3 +9,7 @@ export const createUser = async ({name , email, password}) => {
         [name, email, password]
      )
 }
+
+export const getUser = async({id}) => {
+    return await pool.query("select name, email from users where id = $1", [id])
+}
