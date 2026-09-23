@@ -1,9 +1,9 @@
 import pool from "../config/db.js";
 
-export const createProject =  ({name, description,owner_id}) => {
-    return pool.query("insert into projects (name, description, owner_id) values ($1,$2,$3) returning *",
-        [name, description, owner_id]
-    )
+export const createProject =  ({name, description, icon,owner_id}) => {
+    return pool.query("insert into projects (name, description, icon, owner_id) values ($1,$2,$3,$4) returning *",
+        [name, description, icon, owner_id]
+    ) 
 }
 
 export const findProjectById =  ({id, owner_id}) => {
@@ -15,9 +15,9 @@ export const findProjects =  ({owner_id}) => {
 }
 
 
-export const updateProject = ({id, name, description, owner_id}) => {
-    return  pool.query("update projects set name=$1, description = $2 where id = $3 and owner_id = $4 returning *",
-        [name, description, id, owner_id]
+export const updateProject = ({id, name, description,icon, owner_id}) => {
+    return  pool.query("update projects set name=$1, description = $2, icon = $5 where id = $3 and owner_id = $4 returning *",
+        [name, description, id, owner_id, icon]
     )
 }
 

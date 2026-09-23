@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { getProjects } from "../api/projectApi.js";
 import ProjectCard from "../components/ProjectCard.jsx";
 import DashboardLayout from "../layouts/DashboardLayout.jsx";
@@ -39,7 +39,7 @@ const Dashboard = () => {
   },[])
   return (
     
-     <div className="">
+     <div className="px-8">
       <div className="flex md:flex-row flex-col md:justify-between  w-full items-center">
          <div className="flex flex-col text-center gap-3 md:text-left md:items-start items-center">
     <h1 className="text-lg font-bold text-indigo-600">
@@ -59,7 +59,7 @@ const Dashboard = () => {
       
       
       
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-12">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
   
   <div className="flex justify-between border border-gray-200 p-4 mt-2 bg-gray-50 rounded-xl shadow-xs">
     <div className="flex justify-between gap-8">
@@ -78,8 +78,9 @@ const Dashboard = () => {
     </div>
     
     <div className="relative ">
+      <NavLink to="/projects">
         <ArrowRight className="text-indigo-600 absolute bottom-0 right-0 rounded-xl bg-gray-100 hover:bg-gray-200 p-2 h-8 md:w-12 w-8 " />
-      
+      </NavLink>
     </div>
   </div>
 
@@ -100,23 +101,14 @@ const Dashboard = () => {
     </div>
     
     <div className="relative ">
+      <NavLink to="/tasks">
         <ArrowRight className="text-indigo-600 absolute bottom-0 right-0 rounded-xl bg-gray-100 hover:bg-gray-200 p-2 h-8 md:w-12 w-8" />
-      
+      </NavLink>
     </div>
   </div>
   
 </div>
-      {/* <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
-        {projects.length === 0 && (
-          <div>
-            <p>No projects yet.</p>
-            <p>Create your first project.</p>
-          </div>
-        )}
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div> */}
+      
    
 
    <div className="flex flex-col md:flex-row items-center justify-center md:gap-24 gap-10 border border-violet-100 rounded-xl pl-4 mt-5 bg-violet-50">

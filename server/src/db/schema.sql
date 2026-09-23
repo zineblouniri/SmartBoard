@@ -12,6 +12,7 @@ create table if not exists projects (
     id serial primary key,
     name varchar(100) not null,
     description text,
+    icon varchar(50) default 'folder',
     owner_id integer references users(id) on delete cascade,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp

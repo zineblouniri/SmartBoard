@@ -5,7 +5,7 @@ export const getProjects = async() => {
     return res.data
 }
 
-export const getProject = async(project_id) => {
+export const getProject = async (project_id) => {
     const res = await api.get(`/projects/${project_id}`)
     return res.data
 }

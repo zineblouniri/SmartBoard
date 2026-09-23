@@ -10,7 +10,7 @@ const DashboardLayout = () => {
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <main className="flex-1 flex flex-col  bg-gray-100 overflow-hidden">
         <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)}/>
-        <div className="overflow-y-auto px-8 flex-1  "><Outlet /></div>
+        <div className="overflow-y-auto flex-1  "><Outlet /></div>
       </main>
     </div>
   );
