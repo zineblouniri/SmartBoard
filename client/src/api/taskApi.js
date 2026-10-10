@@ -16,7 +16,8 @@ export const getTaskById = async (task_id) => {
 }
 
 export const createTask = async (task) => {
-    const res = await api.post(`/tasks/project/${task.project_id}`,task)
+   // const res = await api.post(`/tasks/project/${task.project_id}`,task)
+    const res = await api.post(`${task.project_id ? `/tasks/project/${task.project_id}` : `/tasks/new`}`,task)
     return res.data
 }
 

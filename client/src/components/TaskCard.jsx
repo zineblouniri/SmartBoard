@@ -1,29 +1,32 @@
-import React from 'react'
+
 import TaskComponent from './TaskComponent'
 import { NavLink } from 'react-router-dom'
-import { Plus } from 'lucide-react'
+const TaskCard = ({projectId,status,tasks,statusValue,onStatusChange,changeStatus,onDelete}) => {
 
-const TaskCard = () => {
   return (
-    <div className='bg-indigo-50 rounded-lg w-full p-3'>
+    <div className={`${status==="To Do" ? "bg-indigo-50/70" : status==="In Progress" ? "bg-orange-50/70" : "bg-green-50/70" }  min-h-82 rounded-lg w-full p-3 flex flex-col`} >
       <div className='flex gap-2 items-center mb-4 '>
-        <p className='font-semibold text-sm text-gray-700'>To Do</p>
-        <p className='bg-indigo-100 rounded-full py-0.5 px-2.5 text-indigo-500 text-xs font-semibold'>8</p>
+        <p className='font-semibold text-sm text-gray-700'>{status}</p>
+        <p className={`${status==="To Do" ? "bg-indigo-100" : status==="In Progress" ? "bg-orange-100" : "bg-green-100" }  rounded-full py-0.5 px-2.5 ${status==="To Do" ? "text-indigo-500" : status==="In Progress" ? "text-orange-500" : "text-green-500"}  text-xs font-semibold`}>{tasks.length}</p>
       </div>
       <div className="flex flex-col gap-2">
-        <TaskComponent />
-        <TaskComponent />
-        <TaskComponent />
+        {tasks.slice(0, 3).map((task) => (
+          <TaskComponent key={task.id}  task={task} project_id={projectId} onStatusChange={onStatusChange} onDelete={onDelete} changeStatus={changeStatus} />
+        ))}
       </div>
-      <div>
+      <div className='mt-auto pt-3 '>
         <NavLink
-          to="/tasks/new"
-          className="  text-blue-500 w-full rounded-lg flex items-center justify-center p-3 mt-2  border border-gray-200"
+          to={`/tasks/project/${projectId}?status=${statusValue}`}
+          className="  text-blue-500 w-full  flex items-end justify-end p-3 mt-2 "
         >
-          <Plus className="mr-2 size-3" />
-          <span className="text-xs font-bold">Add Task</span>
+          
+          <span className="text-xs font-semibold"> Show all tasks →</span>
         </NavLink>
       </div>
+
+
+
+      
     </div>
   )
 }

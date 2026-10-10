@@ -5,8 +5,10 @@ import { getProjects } from "../api/projectApi.js";
 import { CheckSquare, Folder, FolderCheck, Home, ListCheck, LogOut, Settings, SquareCheck, User, X } from "lucide-react";
 import Logo from '../assets/logo.svg'
 import { NavLink } from "react-router-dom";
+import { getTasks } from "../api/taskApi.js";
 const Sidebar = ({sidebarOpen,setSidebarOpen}) => {
   const [projects, setProjects] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     const fetchProjects = async () => {
@@ -18,6 +20,18 @@ const Sidebar = ({sidebarOpen,setSidebarOpen}) => {
       }
     };
     fetchProjects();
+  }, []);
+
+   useEffect(() => {
+    const fetchTaskss = async () => {
+      try {
+        const tasks = await getTasks();
+        setTasks(tasks);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchTaskss();
   }, []);
 
  
@@ -82,7 +96,7 @@ const Sidebar = ({sidebarOpen,setSidebarOpen}) => {
         </div>
         <div className="flex flex-col items-start  gap-5">
           <p> {projects.length}</p>
-        <p> 0</p>
+        <p> {tasks.length}</p>
         </div>
         </div>
       </div>

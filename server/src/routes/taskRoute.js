@@ -7,6 +7,7 @@ router.get('/', getTasks)
 router.get('/project/:projectId', getTasksProject)
 router.get('/:taskId', getTaskById)
 router.post('/project/:projectId', createTask)
+router.post('/new', createTask)
 router.put('/:taskId', updateTask)
 router.delete('/:taskId', deleteTask)
 

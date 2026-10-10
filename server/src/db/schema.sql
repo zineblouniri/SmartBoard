@@ -18,7 +18,7 @@ create table if not exists projects (
     updated_at timestamp default current_timestamp
 );
 
-create table if not exists tasks (
+alter table if not exists tasks (
     id serial primary key,
     title varchar(200) not null,
     description text,
@@ -26,10 +26,11 @@ create table if not exists tasks (
     priority varchar(20) default 'medium' check (priority in ('low','medium','high')),
     deadline date,
     project_id integer references projects(id) on delete cascade,
+    owner_id integer references users(id) on delete cascade,
     assigned_to integer references users(id) on delete set null,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
-);
+); 
 
 
 CREATE INDEX idx_projects_owner ON projects(owner_id);

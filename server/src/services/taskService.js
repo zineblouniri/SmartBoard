@@ -4,11 +4,12 @@ import { createTask, deleteTask, findTaskById, findTasks, findTasksByProjectId, 
 
 
 export const createNewTask = async({title, description, status, priority, deadline, project_id, assigned_to,owner_id}) =>{
-    const existingProject = await findProjectById({project_id, owner_id})
-    if(existingProject.rows.length === 0 ){
+    const existingProject = await findProjectById({id:project_id || null, owner_id})
+    if(project_id && existingProject.rows.length === 0){
         throw new Error("Project not found")
     }
-    const task = await createTask({title, description, status, priority, deadline, project_id, assigned_to})
+    
+    const task = await createTask({title, description, status, priority, deadline: deadline || null, project_id :project_id || null, assigned_to, owner_id  })
     return task.rows[0]
 }
 export const getTasksByOwnerId = async ({owner_id}) => {
@@ -32,7 +33,7 @@ export const getTaskByIdService = async({id, owner_id}) => {
 export const updateTaskById = async ({id, title, description, status, priority, deadline, assigned_to, owner_id}) =>{
     const existingTask = await findTaskById({id, owner_id})
     if(existingTask.rows.length === 0){
-        throw new Error("Task not found")
+        throw new Error("Task not found") 
     }
     const updatedTask = await updateTask({id, title, description, status, priority, deadline, assigned_to, owner_id})
     return updatedTask.rows[0]
@@ -41,8 +42,8 @@ export const updateTaskById = async ({id, title, description, status, priority, 
 export const deleteTaskById = async({id, owner_id}) =>{
     const existingTask = await findTaskById({id, owner_id})
     if(existingTask.rows.length === 0){
-        throw new Error("Task not found")
+        throw new Error("Task not found") 
     }
-    const deletedTask = await deleteTask({id, owner_id})
-    return deletedTask.rows[0]
+    const deletedTask2 = await deleteTask({id, owner_id})
+    return deletedTask2.rows[0]
 }

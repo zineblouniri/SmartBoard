@@ -30,7 +30,7 @@ export const getTaskById = async (req,res) => {
     const owner_id = req.user.id
     const task_id = req.params.taskId
     try {
-        const task = await getTaskByIdService({task_id, owner_id});
+        const task = await getTaskByIdService({id:task_id, owner_id});
         res.status(200).json(task);
     } catch (error) {
         console.log(error);
@@ -44,7 +44,7 @@ export const createTask =  async (req,res) => {
     const assigned_to = req.user.id
     const project_id = req.params.projectId
     try {
-        const task = await createNewTask({title, description, status, priority, deadline, project_id, assigned_to, owner_id});
+        const task = await createNewTask({title, description, status, priority, deadline, project_id :project_id || null, assigned_to, owner_id});
         res.status(201).json(task);
     } catch (error) {
         console.log(error);
@@ -56,9 +56,9 @@ export const updateTask = async(req,res) => {
     const {title, description, status, priority, deadline} = req.body
     const owner_id = req.user.id
     const assigned_to = req.user.id
-    const task_id = req.params.taskId
+    const id = req.params.taskId
     try {
-        const updatedTask = await updateTaskById({task_id, title, description, status, priority, deadline, assigned_to, owner_id});
+        const updatedTask = await updateTaskById({id, title, description, status, priority, deadline, assigned_to, owner_id});
         res.status(200).json(updatedTask);
     } catch (error) {
         console.log(error);
@@ -68,12 +68,12 @@ export const updateTask = async(req,res) => {
 
 export const deleteTask = async(req,res) => {
     const owner_id = req.user.id
-    const task_id = req.params.taskId
+    const taskId = req.params.taskId
     try {
-        const deletedTask = await deleteTaskById({task_id, owner_id});
+        const deletedTask = await deleteTaskById({id:taskId, owner_id});
         res.status(200).json({ message: "Task deleted successfully" ,task: deletedTask});
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({ message: "Server error"});
     }
 }
