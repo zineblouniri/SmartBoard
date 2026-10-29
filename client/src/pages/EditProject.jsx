@@ -1,5 +1,5 @@
 import React from 'react'
-import ProjectForm from '../components/projectForm'
+import ProjectForm from '../components/ProjectForm'
 import { useParams } from 'react-router-dom'
 
 const EditProject = () => {

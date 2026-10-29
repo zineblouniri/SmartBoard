@@ -101,31 +101,32 @@ const Tasks = () => {
  }
 
   return (
-    <div className="px-8 mt-3">
-      <div className="sticky top-0 z-10 bg-gray-100 pb-2">
-        <div className=" flex justify-between items-center py-2  ">
-        <div>
+    <div className="px-8 md:mt-3 mb-6 md:mb-4">
+      <div className="sticky top-0 z-10 bg-gray-100 mt-3">
+        <div className="flex flex-col md:flex-row md:justify-between justify-center items-center md:py-2  ">
+        <div className="flex flex-col md:items-start items-center gap-1">
           
-          <h1 className="text-2xl font-bold text-gray-800">Tasks 
-            <span className="ml-2 text-sm font-normal text-gray-400">
+          
+          <h1 className="text-2xl font-bold text-gray-800 text-center lg:text-start">Tasks 
+            <span className="ml-2 text-sm font-normal text-gray-400 text-center lg:text-start">
   ({sortedTasks.length} of {tasks.length} tasks )
 </span>
             </h1> 
           
-          <p className="text-gray-500 text-sm">
+          <p className="  text-sm text-gray-500 text-center mt-1 lg:text-start">
             Manage and organize all your tasks in one place.
           </p>
         </div>
         <NavLink
           to={projectId ? `/tasks/project/${projectId}/new` : `/tasks/new`}
-          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg flex items-center"
+          className=" bg-blue-500 hover:bg-blue-600 text-white mt-2 py-2 px-4 rounded-lg flex items-center"
         >
-          <Plus className="mr-2 size-4" />{" "}
+          <Plus className="mr-2 size-4 " />{" "}
           <span className="text-sm">New Task</span>
         </NavLink>
       </div>
-      <div className="flex justify-start items-center mb-4 gap-2 bg-gray-100">
-        <div className="flex items-center gap-2 border border-gray-200 rounded-lg w-1/4 bg-white py-2 px-2 ">
+      <div className="flex lg:flex-row flex-col justify-start lg:items-center mb-4 mt-3 gap-2 bg-gray-100 w-full">
+        <div className="flex items-center gap-2 border border-gray-200 rounded-lg w-full bg-white py-2 px-2 ">
           <Search className="size-3.5 text-gray-400" />
           <input
             type="text"
@@ -135,7 +136,7 @@ const Tasks = () => {
             className="text-sm w-full outline-none  "
           />
         </div>
-        <div className="relative w-40">
+        <div className="relative lg:w-2/3">
           <select
             name="ProjectName"
             id="projectName"
@@ -154,7 +155,8 @@ const Tasks = () => {
             <ChevronDown className="size-4 text-gray-400" />
           </span>
         </div>
-        <div className="relative w-26">
+      <div className="flex gap-2 w-full">
+          <div className="relative lg:w-26 w-full">
           <select
             name="Status"
             id="status"
@@ -180,7 +182,7 @@ const Tasks = () => {
             <ChevronDown className="size-4 text-gray-400" />
           </span>
         </div>
-        <div className="relative w-26">
+        <div className="relative lg:w-26 w-full">
           <select
             name="Sort"
             id="sort"
@@ -195,6 +197,7 @@ const Tasks = () => {
             <ChevronDown className="size-4 text-gray-400" />
           </span>
         </div>
+      </div>
         
       </div>
       </div>

@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
-import { getProjects } from "../api/projectApi.js";
-import ProjectCard from "../components/ProjectCard.jsx";
-import DashboardLayout from "../layouts/DashboardLayout.jsx";
+import  { useEffect, useState } from "react";
+import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import { getCurrentUser } from "../api/authApi.js";
 import Button from "../components/Button.jsx";
 import dashboardHero from "../assets/dashboard-hero.svg";
@@ -11,20 +8,10 @@ import folderIcon from "../assets/folder-icon.svg";
 import taskIcon from "../assets/tasks-icon.svg";
 import {  ArrowRight } from "lucide-react";
 const Dashboard = () => {
-  const [projects, setProjects] = useState([]);
   const [user, setUser] = useState(null);
+  const {projectCount , taskCount} = useOutletContext()
   const navigate = useNavigate();
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const projects = await getProjects();
-        setProjects(projects);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchProjects();
-  }, []);
+  
    useEffect(() => {
     const getUser = async () => {
       try {
@@ -39,7 +26,7 @@ const Dashboard = () => {
   },[])
   return (
     
-     <div className="px-8">
+     <div className="px-8 mt-5">
       <div className="flex md:flex-row flex-col md:justify-between  w-full items-center">
          <div className="flex flex-col text-center gap-3 md:text-left md:items-start items-center">
     <h1 className="text-lg font-bold text-indigo-600">
@@ -61,8 +48,8 @@ const Dashboard = () => {
       
       <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
   
-  <div className="flex justify-between border border-gray-200 p-4 mt-2 bg-gray-50 rounded-xl shadow-xs">
-    <div className="flex justify-between gap-8">
+  <div className="flex justify-between border border-gray-200 py-4 px-1 md:px-4 mt-2 bg-gray-50 rounded-xl shadow-xs">
+    <div className="flex justify-between gap-6 md:gap-8">
        <img src={folderIcon} alt="" className="text-indigo-600" />
        <div>
         <div>
@@ -70,22 +57,22 @@ const Dashboard = () => {
       Total Projects
     </h2>
     <h2 className="font-bold text-indigo-600 md:text-3xl text-2xl">
-      {projects.length}
+      {projectCount}
     </h2>
     <p className="text-gray-500 md:text-md text-sm">Across all workspaces</p>
     </div>
        </div>
     </div>
     
-    <div className="relative ">
+    <div className="relative mr-1 ">
       <NavLink to="/projects">
         <ArrowRight className="text-indigo-600 absolute bottom-0 right-0 rounded-xl bg-gray-100 hover:bg-gray-200 p-2 h-8 md:w-12 w-8 " />
       </NavLink>
     </div>
   </div>
 
-  <div className="flex justify-between border border-gray-200 p-4 mt-2 bg-gray-50 rounded-xl shadow-xs">
-    <div className="flex justify-between gap-8">
+  <div className="flex justify-between border border-gray-200 py-4 px-1 md:px-4 mt-2 bg-gray-50 rounded-xl shadow-xs">
+    <div className="flex justify-between gap-6 md:gap-8">
        <img src={taskIcon} alt="" className="text-indigo-600" />
        <div>
         <div>
@@ -93,14 +80,14 @@ const Dashboard = () => {
       Total Tasks
     </h2>
     <h2 className="font-bold text-indigo-600 md:text-3xl text-2xl">
-      {projects.length}
+      {taskCount}
     </h2>
     <p className="text-gray-500 text-sm md:text-md">All tasks assigned</p>
     </div>
        </div>
     </div>
     
-    <div className="relative ">
+    <div className="relative mr-1">
       <NavLink to="/tasks">
         <ArrowRight className="text-indigo-600 absolute bottom-0 right-0 rounded-xl bg-gray-100 hover:bg-gray-200 p-2 h-8 md:w-12 w-8" />
       </NavLink>
@@ -126,7 +113,7 @@ const Dashboard = () => {
     
   </div>
   
-    <Button className="bg-violet-600 hover:bg-violet-700 px-5 md:mb-0 mb-10" onClick={() => navigate("/projects")}>+ New Project</Button>
+    <Button className="bg-violet-600 hover:bg-violet-700 px-5 md:mb-0 mb-10" onClick={() => navigate("/projects/new")}>+ New Project</Button>
       
   
    </div>

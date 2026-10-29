@@ -38,8 +38,8 @@ const Icon = iconMap[project.icon];
             </div>
                    
         <div className="flex flex-col justify-start items-start gap-1">
-          <p className="text-lg font-semibold text-gray-900">{project.name}</p>
-          <p className="text-gray-900 text-sm line-clamp-1">{project.description}</p>
+          <p className="md:text-lg text-sm font-semibold text-gray-900">{project.name}</p>
+          <p className="text-gray-900 md:text-sm text-xs line-clamp-2">{project.description}</p>
         </div>
       </div>
 

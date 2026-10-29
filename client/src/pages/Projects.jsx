@@ -46,29 +46,29 @@ const Projects = () => {
     return new Date(a.created_at) - new Date(b.created_at);
   });
   return (
-    <div className="px-8 mt-3">
-      <div className="sticky top-0 z-10 bg-gray-100 pb-2">
-        <div className=" flex justify-between items-center py-2  ">
-        <div>
+    <div className="px-8 md:mt-3 mb-6   md:mb-4">
+      <div className="sticky top-0 z-10 bg-gray-100 mt-3">
+        <div className="flex flex-col md:flex-row md:justify-between justify-center items-center md:py-2  ">
+        <div className="flex flex-col md:items-start items-center gap-1">
           
-          <h1 className="text-2xl font-bold text-gray-800">Projects <span className="ml-2 text-sm font-normal text-gray-400">
+          <h1 className="text-2xl font-bold text-gray-800">Projects <span className="ml-2 text-sm font-normal text-gray-500">
     ({projects.length} projects)
   </span></h1> 
           
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-500 text-sm text-center md:text-left">
             Manage and organize all your projects in one place.
           </p>
         </div>
         <NavLink
           to="/projects/new"
-          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg flex items-center"
+          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 mt-4 md:mt-0 rounded-lg flex items-center"
         >
           <Plus className="mr-2 size-4" />{" "}
           <span className="text-sm">New Project</span>
         </NavLink>
       </div>
-      <div className="flex justify-start items-center mb-4 gap-2 bg-gray-100">
-        <div className="flex items-center gap-2 border border-gray-200 rounded-lg w-1/4 bg-white py-2 px-2 ">
+      <div className="flex  md:flex-row flex-col justify-start items-center mb-4 mt-3 md:mt-0 gap-2 bg-gray-100">
+        <div className="flex items-center gap-2 border border-gray-200 rounded-lg md:w-1/4 w-full bg-white py-2 px-2 ">
           <Search className="size-3.5 text-gray-400" />
           <input
             type="text"
@@ -78,7 +78,7 @@ const Projects = () => {
             className="text-sm w-full outline-none  "
           />
         </div>
-        <div className="relative w-26">
+        <div className="relative md:w-26 w-1/2">
           <select
             name="Sort"
             id="sort"
@@ -135,7 +135,7 @@ const Projects = () => {
 
        {projectToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
-    <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+    <div className="bg-white rounded-xl shadow-xl md:w-full md:max-w-md m-3 md:m-0 p-6">
 
       <h2 className="text-lg font-semibold text-gray-800">
         Delete project ?

@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom'
 const TaskCard = ({projectId,status,tasks,statusValue,onStatusChange,changeStatus,onDelete}) => {
 
   return (
-    <div className={`${status==="To Do" ? "bg-indigo-50/70" : status==="In Progress" ? "bg-orange-50/70" : "bg-green-50/70" }  min-h-82 rounded-lg w-full p-3 flex flex-col`} >
-      <div className='flex gap-2 items-center mb-4 '>
+    <div className={`${status==="To Do" ? "bg-indigo-50/70" : status==="In Progress" ? "bg-orange-50/70" : "bg-green-50/70" }  lg:min-h-82  rounded-lg w-full p-3 flex flex-col`} >
+      <div className='flex gap-2 items-center lg:mb-4 mb-2 '>
         <p className='font-semibold text-sm text-gray-700'>{status}</p>
         <p className={`${status==="To Do" ? "bg-indigo-100" : status==="In Progress" ? "bg-orange-100" : "bg-green-100" }  rounded-full py-0.5 px-2.5 ${status==="To Do" ? "text-indigo-500" : status==="In Progress" ? "text-orange-500" : "text-green-500"}  text-xs font-semibold`}>{tasks.length}</p>
       </div>
@@ -14,10 +14,10 @@ const TaskCard = ({projectId,status,tasks,statusValue,onStatusChange,changeStatu
           <TaskComponent key={task.id}  task={task} project_id={projectId} onStatusChange={onStatusChange} onDelete={onDelete} changeStatus={changeStatus} />
         ))}
       </div>
-      <div className='mt-auto pt-3 '>
+      <div className='mt-auto lg:pt-3 pt-2'>
         <NavLink
           to={`/tasks/project/${projectId}?status=${statusValue}`}
-          className="  text-blue-500 w-full  flex items-end justify-end p-3 mt-2 "
+          className="  text-blue-500 w-full  flex items-end justify-end lg:p-3 lg:mt-2 "
         >
           
           <span className="text-xs font-semibold"> Show all tasks →</span>

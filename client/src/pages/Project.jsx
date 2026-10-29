@@ -1,5 +1,5 @@
 import  { useEffect, useState } from 'react'
-import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 import Button from '../components/Button'
 import { Calendar, Pencil, Trash2 ,Folder,
   Rocket,
@@ -13,7 +13,8 @@ import { Calendar, Pencil, Trash2 ,Folder,
   Search,
   CircleCheck,
   HourglassIcon,
-  SquareCheck} from 'lucide-react'
+  SquareCheck,
+  EllipsisVertical} from 'lucide-react'
 import { deleteProject, getProject } from '../api/projectApi'
 import TaskCard from '../components/TaskCard'
 import { toast } from 'sonner'
@@ -29,6 +30,7 @@ const iconMap = {
   chart: ChartLine,
   users: Users,
 };
+
 const [project , setProject] =useState({
     name : '',
     description : '',
@@ -47,6 +49,10 @@ useEffect(() => {
     fetchProjectById(id);
   }, [id]);
 
+const {setCurrentProjectName} = useOutletContext()
+  useEffect(() => {
+  setCurrentProjectName(project.name || '');
+}, [project.name, setCurrentProjectName]);
 const navigate = useNavigate()
 const [msgConfirm, setMsgConfirm] = useState(false)
   const handleDelete = async() => {
@@ -129,33 +135,54 @@ const Icon = iconMap[project.icon];
       }
     }
 
+    const [openMenu, setOpenMenu] = useState(false)
+    const show = false
+
   return (
-    <div className='bg-white h-screen w-full '>
+    <div className='relative bg-white h-screen w-full '>
         
       <hr className='w-full mx-auto border-gray-100 '/>
       
-        <div className="flex flex-col justify-between min-h-30 w-3/4 bg-white border border-gray-200 rounded-lg py-2 px-8  shadow-xs hover:shadow-md transition-shadow duration-300 ">
-      <div className="flex  gap-2 items-center">
-            <div className="  bg-indigo-50 rounded-lg px-7 py-7 cursor-pointer hover:border-blue-500">
+        <div className="flex flex-col justify-between min-h-30 lg:w-3/4 w-full bg-white  lg:py-2 py-4 px-8  ">
+      <div className="flex  gap-3 items-center relative ">
+            <div className="  bg-indigo-50 rounded-lg lg:p-7 p-5 cursor-pointer hover:border-blue-500">
                     
             <Icon  className="size-8 text-indigo-500" /></div>
                    
         <div className="flex flex-col justify-start items-start gap-1">
-          <p className="text-xl font-semibold text-gray-900 ">{project.name}</p>
+          <p className="lg:text-xl text-md font-semibold text-gray-900 ">{project.name}</p>
           <p className="text-gray-900 text-sm line-clamp-1">{project.description}</p>
         </div>
+        <EllipsisVertical className="absolute top-1 right-0 size-6 text-gray-700 ml-auto hover:cursor-pointer lg:hidden" onClick={() => setOpenMenu(prev => !prev)} />
+        {openMenu && (
+          <div className="absolute top-6 right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+          <div className='flex flex-col '>
+           <NavLink to={`/projects/${project.id}/edit`} className="py-2.5 px-4 rounded-lg  flex items-center">
+            <Pencil className="text-gray-800 size-3" /><span className='text-gray-800 text-xs ml-2'>Edit Project</span>
+          </NavLink>
+          <Button onClick={() => setMsgConfirm(true)} className="  bg-red-100/15 py-2.5 rounded-lg flex items-center">
+            <Trash2 className="text-red-500 size-3" /><span className='text-red-500 text-xs ml-2' >Delete Project</span>
+          </Button>
+          
+          </div>
+          </div>
+        )}
       </div>
 
       <div className="flex items-center justify-between">
         <div className="flex justify-center items-center gap-2">
             <Calendar className="size-3 text-gray-500 mt-0.5" />
             <p className="text-gray-900 text-xs ">
-              Created on {new Date(project.created_at).toLocaleString()}
+              Created on {new Date(project.created_at).toLocaleDateString("en-US", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })}
             </p>
             <User className="size-3 text-gray-500 ml-3 mt-0.5" />
             <p className="text-gray-900 text-xs">You are the owner</p>
         </div>
-        <div className="flex justify-end gap-2 mt-3">
+        <div className={`lg:flex justify-end gap-2 mt-3 ${show ? "flex" : "hidden"}`}>
           
           <NavLink to={`/projects/${project.id}/edit`} className="border border-gray-200 py-2.5 px-4 rounded-lg  flex items-center">
             <Pencil className="text-gray-800 size-3" /><span className='text-gray-800 text-xs ml-2'>Edit Project</span>
@@ -165,8 +192,9 @@ const Icon = iconMap[project.icon];
           </Button>
         </div>
       </div>
-      <div className='flex justify-between items-center mt-2 gap-4'>
-        <div className="flex justify-start items-center gap-5 border border-gray-200 rounded-lg p-3 w-full">
+      <div className='flex lg:flex-row flex-col justify-start items-center mt-2 gap-4 w-full'>
+        <div className='flex justify-center items-center gap-4 w-full'>
+          <div className="flex justify-start items-center gap-5 border border-gray-200 rounded-lg p-3 w-full">
             <div className='border-0 rounded-full bg-blue-50 p-3'>
 <ListCheckIcon className="size-4 text-blue-500 " />
             </div>
@@ -194,7 +222,10 @@ const Icon = iconMap[project.icon];
             </p>
             </div>
         </div>
-        <div className="flex justify-start items-center gap-3 border border-gray-200 rounded-lg p-3 w-full">
+        </div>
+        
+        <div className='flex justify-center items-center gap-4 w-full'>
+          <div className="flex justify-start items-center gap-3 border border-gray-200 rounded-lg p-3 w-full">
             <div className='border-0 rounded-full bg-orange-50 p-3'>
 <HourglassIcon className="size-4 text-orange-300 " />
             </div>
@@ -222,20 +253,29 @@ const Icon = iconMap[project.icon];
             </p>
             </div>
         </div>
+        </div>
 
       </div>
 
     <div className="mt-2">
-        <div className=" flex justify-between items-center py-2  ">
-        <div>
+        <div className="flex justify-between items-center py-2  ">
+        
           
           <p className="text-lg font-semibold text-gray-800">Tasks </p> 
+          <NavLink
+          to={`/tasks/project/${project.id}/new`}
+          className="  bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded-lg flex items-center"
+        >
+          <Plus className="mr-2 size-4" />{" "}
+          <span className="text-xs">Add Task</span>
+        </NavLink>
           
-        </div>
+        
+        
         
       </div>
-      <div className="flex justify-start items-center mb-4 gap-2 relative ">
-        <div className="flex items-center gap-2 border border-gray-200 rounded-lg w-80 bg-white py-2 px-2 ">
+      
+        <div className="sticky top-0 z-10 flex items-center mb-4 gap-2 border border-gray-200 rounded-lg w-80 bg-white py-2 px-2 ">
           <Search className="size-3.5 text-gray-400" />
           <input
             type="text"
@@ -246,14 +286,8 @@ const Icon = iconMap[project.icon];
           />
         </div>
         
-        <NavLink
-          to={`/tasks/project/${project.id}/new`}
-          className="absolute right-0 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg flex items-center"
-        >
-          <Plus className="mr-2 size-4" />{" "}
-          <span className="text-sm">Add Task</span>
-        </NavLink>
-      </div>
+        
+      
       </div>
 <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
   <TaskCard status={"To Do"} tasks={todoTasks} statusValue={"todo"} projectId={id} onStatusChange={onStatusChange} changeStatus={changeStatus} onDelete={setTaskToDelete} />
@@ -263,9 +297,12 @@ const Icon = iconMap[project.icon];
 </div>
 
     </div>
+    
+    <div className="lg:absolute right-80 top-0 bottom-0 w-px bg-gray-100" />
+
       {msgConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
-    <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+    <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6 m-4">
 
       <h2 className="text-lg font-semibold text-gray-800">
         Delete project ?

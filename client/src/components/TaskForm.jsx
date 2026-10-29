@@ -60,19 +60,19 @@ const TaskForm = ({taskId, project_id}) => {
     }
   }
   return (
-    <div className='px-6'>
-      <form onSubmit={taskId? handleEdit :handleSubmit} >
-          <div className='flex flex-col items-start pt-7 '>
+    <div className='lg:px-6'>
+      <form onSubmit={taskId? handleEdit :handleSubmit} className='pb-28' >
+          <div className='flex flex-col items-start lg:pt-7 '>
             <p className='text-gray-800 font-semibold mb-1'>Task Title </p>
             <p className='text-gray-500 text-sm mb-2'>Choose a clear and descriptive name for your task</p>
-            <input value={formData.title} onChange={(e) => setFormData({...formData,title :e.target.value})} type="text" placeholder='e.g. Smartboard Website' className="text-sm text-gray-500 border border-gray-200 bg-white rounded-lg px-3 py-2 outline-none w-full" />
+            <input required={true} value={formData.title} onChange={(e) => setFormData({...formData,title :e.target.value})} type="text" placeholder='e.g. Smartboard Website' className="text-sm text-gray-500 border border-gray-200 bg-white rounded-lg px-3 py-2 outline-none w-full" />
           </div>
           <div className='flex flex-col items-start pt-5'>
             <p className='text-gray-800 font-semibold mb-1'>Description</p>
             <p className='text-gray-500 text-sm mb-2'>Describe your task goals, features or any important details.</p>
-            <textarea value={formData.description} onChange={(e) => setFormData({...formData,description :e.target.value})} placeholder='e.g. This project will help us manage tasks, collaborate with team members, and track progress easily.' className="text-sm bg-white text-gray-500 border border-gray-200 rounded-lg px-3 py-2 outline-none w-full h-25" />
+            <textarea required={true} value={formData.description} onChange={(e) => setFormData({...formData,description :e.target.value})} placeholder='e.g. This project will help us manage tasks, collaborate with team members, and track progress easily.' className="text-sm bg-white text-gray-500 border border-gray-200 rounded-lg px-3 py-2 outline-none w-full h-25" />
           </div>
-          <div className='flex items-center justify-start pt-5 w-full gap-3'>
+          <div className='flex lg:flex-row flex-col items-center justify-start pt-5 w-full gap-1 lg:gap-3'>
             <div className="relative w-50">
           <select
             name="Status"
@@ -120,7 +120,10 @@ const TaskForm = ({taskId, project_id}) => {
           </div>
             
 
-          <div className="pt-5 px-6 flex gap-3 justify-end items-center pb-5">
+          <div className="fixed bottom-0 left-0 right-0 z-30 flex justify-end gap-3
+                border-t border-gray-200 bg-white
+                px-4 py-4 shadow-lg
+                lg:left-64 lg:px-6">
             <button type="button" onClick={() => navigate("/projects")} className='border border-gray-200 hover:bg-gray-100 hover:cursor-pointer text-gray-800 py-2 px-4 rounded-lg text-sm '>Cancel</button>
             <button type='submit' className="bg-blue-500 hover:bg-blue-600 cursor-pointer text-white py-2 px-4 rounded-lg flex items-center">
               <Save className="mr-2 size-4"/> <p className='text-sm'>{taskId ? 'Update Task' : 'Create Task'}</p>

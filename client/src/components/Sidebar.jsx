@@ -1,41 +1,7 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getProjects } from "../api/projectApi.js";
-import { CheckSquare, Folder, FolderCheck, Home, ListCheck, LogOut, Settings, SquareCheck, User, X } from "lucide-react";
+import {Folder, FolderCheck, Home, ListCheck, LogOut, Settings, SquareCheck, User, X } from "lucide-react";
 import Logo from '../assets/logo.svg'
 import { NavLink } from "react-router-dom";
-import { getTasks } from "../api/taskApi.js";
-const Sidebar = ({sidebarOpen,setSidebarOpen}) => {
-  const [projects, setProjects] = useState([]);
-  const [tasks, setTasks] = useState([]);
-  const navigate = useNavigate();
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const projects = await getProjects();
-        setProjects(projects);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchProjects();
-  }, []);
-
-   useEffect(() => {
-    const fetchTaskss = async () => {
-      try {
-        const tasks = await getTasks();
-        setTasks(tasks);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchTaskss();
-  }, []);
-
- 
-
+const Sidebar = ({sidebarOpen,setSidebarOpen,projectCount,taskCount}) => {
   
   return (
     <aside className={`lg:flex flex-col fixed lg:static top-0 left-0 z-40 px-4 bg-gray-900 text-white w-64 h-screen ${sidebarOpen ? "flex" : "hidden"} `}>
@@ -95,8 +61,8 @@ const Sidebar = ({sidebarOpen,setSidebarOpen}) => {
         </div>
         </div>
         <div className="flex flex-col items-start  gap-5">
-          <p> {projects.length}</p>
-        <p> {tasks.length}</p>
+          <p> {projectCount}</p>
+        <p> {taskCount}</p>
         </div>
         </div>
       </div>
@@ -113,7 +79,7 @@ const Sidebar = ({sidebarOpen,setSidebarOpen}) => {
           
           <NavLink to="/login" className={(({isActive}) => 
             `flex gap-5  rounded-lg w-55 ${isActive ? "bg-blue-900/50" :""}`
-          )}  ><LogOut size={18} /><span>logout</span></NavLink>
+          )}  ><LogOut size={18} /><span>Logout</span></NavLink>
         </div>
         </div>
        

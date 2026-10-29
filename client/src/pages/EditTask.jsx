@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 const EditTask = () => {
     const { id } = useParams();
   return (
-    <div className=''>
+    <div>
       <TaskForm taskId={id}/>
     </div>
   )

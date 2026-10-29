@@ -1,7 +1,7 @@
-import  { useEffect, useState } from 'react'
-import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import  { use, useEffect, useState } from 'react'
+import { NavLink, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 import Button from '../components/Button'
-import { Calendar, Pencil, Trash2,User,Book, Icon, PlusCircle, PencilIcon, User2} from 'lucide-react'
+import { Calendar, Pencil, Trash2,User, PlusCircle, PencilIcon, User2, EllipsisVertical} from 'lucide-react'
 import { deleteTask, getTaskById } from '../api/taskApi'
 import { toast } from 'sonner'
 import { getProject } from '../api/projectApi'
@@ -47,6 +47,12 @@ const Task = () => {
         fetchTask();
     }, [id])
 
+    const {setCurrentTaskTitle} = useOutletContext();
+
+    useEffect(() => {
+      setCurrentTaskTitle(task.title || '');
+    }, [task.title, setCurrentTaskTitle]);
+
     const ProjectIcon = iconMap[icon] || Folder;
 
 
@@ -77,37 +83,53 @@ const handleDelete = async() => {
 
   console.log("date1", date1);
   console.log("date2", date2);
-
+ const [openMenu, setOpenMenu] = useState(false)
+    const show = false
 
   return (
     <div className='flex flex-col justify-center items-start p-6 w-full'>
-      <div className='flex flex-col w-full min-h-50 bg-white rounded-lg shadow-xs p-6 gap-4'>
-        <div className="flex gap-2 items-center">
-            <div className="  bg-indigo-50 rounded-lg px-7 py-7 cursor-pointer hover:border-blue-500">
+      <div className='flex flex-col w-full lg:min-h-50 min-h-30 bg-white rounded-lg shadow-xs p-6 gap-4'>
+        <div className="relative flex gap-3 items-center">
+            <div className="  bg-indigo-50 rounded-lg lg:p-7 p-5 cursor-pointer hover:border-blue-500">
                     
-            <Book  className="size-8 text-indigo-500" />
+            <NavLink to={task.project_id ? `/projects/${task.project_id}` : "/tasks"} 
+            aria-label="Open project" title='Open project'><Folder  className="lg:size-8 size-6 text-indigo-500" />
+            </NavLink>
             </div>
                    
         <div className="flex flex-col justify-start items-start gap-1">
           <p className="text-xl font-semibold text-gray-900 ">{task.title}</p>
         </div>
+        <EllipsisVertical className="absolute top-1 right-0 size-6 text-gray-700 ml-auto hover:cursor-pointer lg:hidden" onClick={() => setOpenMenu(prev => !prev)} />
+        {openMenu && (
+          <div className="absolute top-6 right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+          <div className='flex flex-col '>
+           <NavLink to={`/tasks/${id}/edit`} className="py-2.5 px-4 rounded-lg  flex items-center">
+            <Pencil className="text-gray-800 size-3" /><span className='text-gray-800 text-xs ml-2'>Edit Task</span>
+          </NavLink>
+          <Button onClick={() => setMsgConfirm(true)} className="  bg-red-100/15 py-2.5 rounded-lg flex items-center">
+            <Trash2 className="text-red-500 size-3" /><span className='text-red-500 text-xs ml-2' >Delete Task</span>
+          </Button>
+          
+          </div>
+          </div>
+        )}
       </div>
 
       <div className="flex items-center justify-between">
-        <div className="flex justify-center items-center gap-2">
+        <div className="flex justify-center items-center lg:gap-2">
             <Calendar className="size-3 text-gray-500 mt-0.5" />
             <p className="text-gray-900 text-xs ">
               Created on {new Date(task.created_at).toLocaleDateString("en-US", {
-                          month: "long",
-                          day: "numeric",
-                          year: "numeric",
-                          timeZone: "UTC",
-                        })}
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })}
             </p>
             <User className="size-3 text-gray-500 ml-3 mt-0.5" />
             <p className="text-gray-900 text-xs">You are the owner</p>
         </div>
-        <div className="flex justify-end gap-2 mt-3">
+        <div className={`lg:flex justify-end gap-2 mt-3 ${show ? "flex" : "hidden"}`}>
           
           <NavLink to={`/tasks/${id}/edit`} className="border border-gray-200 py-2.5 px-4 rounded-lg  flex items-center">
             <Pencil className="text-gray-800 size-3" /><span className='text-gray-800 text-xs ml-2'>Edit Task</span>
@@ -118,8 +140,8 @@ const handleDelete = async() => {
         </div>
       </div>
       </div>
-      <div className='flex items-start justify-center w-full mt-4 flex-1 '>
-        <div className=' gap-4 w-2/3 flex flex-col'>
+      <div className='flex lg:flex-row flex-col lg:items-start lg:justify-center w-full mt-4 flex-1 '>
+        <div className=' gap-4 lg:w-2/3 flex flex-col'>
         <div className='flex flex-col bg-white rounded-lg shadow-xs p-6 gap-4 '>
           <div className='flex flex-col items-start gap-2'>
             <p className="text-md font-semibold text-gray-900">Description</p>
@@ -140,7 +162,7 @@ const handleDelete = async() => {
                 
               <div className='flex items-center gap-2'>
                 <ProjectIcon className="size-3 text-blue-400 mt-0.5" />
-                <p className="text-blue-500 text-sm font-semibold">{projectName}</p>
+                <NavLink to={`/projects/${task.project_id}`} className="text-blue-500 text-sm font-semibold hover:underline hover:text-blue-600">{projectName}</NavLink>
               </div>
                 <div className=' text-center items-center  '>
                    <div className={`w-fit ${task.priority === "high" ? "bg-red-50" : task.priority === "medium" ? "bg-yellow-50" : "bg-blue-50"}  rounded-full py-1 px-3 `}>
@@ -180,7 +202,7 @@ const handleDelete = async() => {
           </div>
         </div>
         </div>
-        <div className='flex flex-col px-4  gap-4 flex-1'>
+        <div className='flex flex-col lg:px-4 mt-4 lg:mt-0 gap-4 lg:flex-1 '>
 <div className='flex flex-col bg-white rounded-lg shadow-xs p-6 items-start gap-2'>
             <p className="text-md font-semibold text-gray-900 mb-2">Activity</p>
             <div className='relative flex flex-col gap-6'>
